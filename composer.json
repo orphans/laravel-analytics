@@ -1,5 +1,5 @@
 {
-	"name": "ipunkt/laravel-analytics",
+	"name": "orphans/laravel-analytics",
 	"type": "library",
 	"description": "Analytics tracking for Laravel",
 	"keywords": ["analytics", "google analytics", "laravel", "statistics", "javascript", "php"],
@@ -8,6 +8,10 @@
 		{
 			"name": "Robert Kummer",
 			"email": "r.kummer@ipunkt.biz"
+		},
+		{
+			"name": "Ed Jeavons",
+			"email": "eddie@edjeavons.co.uk"
 		}
 	],
 	"require": {
