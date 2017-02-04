@@ -123,6 +123,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $cspNonce = null;
 
     /**
+     * is analytics output enabled?
+     *
+     * @var bool
+     */
+    private $enabled = true;
+
+    /**
      * setting options via constructor
      *
      * @param array $options
@@ -404,6 +411,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      */
     public function render()
     {
+        if ($this->enabled === false) {
+            return '';
+        }
+
         $script[] = $this->_getJavascriptTemplateBlockBegin();
 
         $trackingUserId = (null === $this->userId)
@@ -707,5 +718,52 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     public function cspNonce()
     {
         return $this->cspNonce;
+    }
+
+    /**
+     * returns the current tracking ID
+     *
+     * @return string
+     */
+    public function getTrackingId()
+    {
+        return $this->trackingId;
+    }
+
+    /**
+     * sets the tracking ID
+     *
+     * @param string $trackingId
+     * @return AnalyticsProviderInterface
+     */
+    public function setTrackingId($trackingId)
+    {
+        $this->trackingId = $trackingId;
+
+        return $this;
+    }
+
+    /**
+     * enables output rendering
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function enable()
+    {
+        $this->enabled = true;
+
+        return $this;
+    }
+
+    /**
+     * disabled all output rendering
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function disable()
+    {
+        $this->enabled = false;
+
+        return $this;
     }
 }

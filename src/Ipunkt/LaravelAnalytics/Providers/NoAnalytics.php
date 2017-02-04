@@ -304,4 +304,45 @@ class NoAnalytics implements AnalyticsProviderInterface
     {
         return null;
     }
+
+    /**
+     * returns the current tracking ID
+     *
+     * @return string
+     */
+    public function getTrackingId()
+    {
+        return '';
+    }
+
+    /**
+     * sets the tracking ID
+     *
+     * @param string $trackingId
+     * @return AnalyticsProviderInterface
+     */
+    public function setTrackingId($trackingId)
+    {
+        return $this;
+    }
+
+    /**
+     * enables output rendering
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function enable()
+    {
+        return $this;
+    }
+
+    /**
+     * disabled all output rendering
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function disable()
+    {
+        return $this;
+    }
 }
