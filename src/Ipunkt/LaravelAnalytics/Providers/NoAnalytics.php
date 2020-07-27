@@ -242,6 +242,14 @@ class NoAnalytics implements AnalyticsProviderInterface
         return $this;
     }
 
+    public function ecAddImpression($id, $name, $list = null, $category = null, $brand = null, $variant = null, $position = null, $price = null);  
+
+    public function ecAddProduct($id, $name, $category = null, $brand = null, $variant = null, $position = null, $price = null, $quantity = null);
+
+    public function ecSetAction($action, $options) {
+        return $this;
+    }
+
     /**
      * ecommerce tracking - add transaction
      *

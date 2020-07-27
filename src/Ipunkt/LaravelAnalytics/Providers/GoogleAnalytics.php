@@ -53,6 +53,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $ecommerceTracking = false;
 
     /**
+     * ecomerce enchanced tracking
+     *
+     * @var boolean
+     */
+    private $ecommerceEnchancedTracking = false;
+
+    /**
      * anonymize users ip
      *
      * @var bool
@@ -296,6 +303,105 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         return $this;
     }
 
+    public function ecAddImpression($id, $name, $list = null, $category = null, $brand = null, $variant = null, $position = null, $price = null) {
+        $this->enableEcommerceEnhancedTracking();
+
+        $parameters = [
+            'id'    => $id,
+            'name'  => $name,
+        ];
+
+        if (!is_null($list)) {
+            $parameters['list'] = $list;
+        }
+
+        if (!is_null($category)) {
+            $parameters['category'] = $category;
+        }
+
+        if (!is_null($brand)) {
+            $parameters['brand'] = $brand;
+        }
+
+        if (!is_null($variant)) {
+            $parameters['variant'] = $variant;
+        }
+
+        if (!is_null($position)) {
+            $parameters['position'] = $position;
+        }
+
+        if (!is_null($price)) {
+            $parameters['price'] = $price;
+        }
+
+        $jsonParameters = json_encode($parameters);
+        $trackingCode = "ga('ec:addImpression', {$jsonParameters});";
+
+        $this->trackingBag->add($trackingCode);
+
+        return $this;
+    }   
+
+    public function ecAddProduct($id, $name, $category = null, $brand = null, $variant = null, $position = null, $price = null, $quantity = null, $action = null) {
+        $this->enableEcommerceEnhancedTracking();
+
+        $parameters = [
+            'id'    => $id,
+            'name'  => $name,
+        ];
+
+        if (!is_null($category)) {
+            $parameters['category'] = $category;
+        }
+
+        if (!is_null($brand)) {
+            $parameters['brand'] = $brand;
+        }
+
+        if (!is_null($variant)) {
+            $parameters['variant'] = $variant;
+        }
+
+        if (!is_null($position)) {
+            $parameters['position'] = $position;
+        }
+
+        if (!is_null($price)) {
+            $parameters['price'] = $price;
+        }
+
+        if (!is_null($quantity)) {
+            $parameters['quantity'] = $quantity;
+        }
+
+        $jsonParameters = json_encode($parameters);
+        $trackingCode = "ga('ec:addProduct', {$jsonParameters});";
+
+        $this->trackingBag->add($trackingCode);
+
+        if($action) {
+            $this->trackingBag->add("ga('ec:setAction', '".$action."');");
+        }
+
+        return $this;
+    }
+
+    public function ecSetAction($action, $options = null) {
+        $this->enableEcommerceEnhancedTracking();
+
+        $trackingCode = "ga('ec:setAction', '".$action."');";
+
+        if($options) {
+            $jsonParameters = json_encode($options);
+            $trackingCode = "ga('ec:setAction', '".$action."', {$jsonParameters});"; 
+        }
+
+        $this->trackingBag->add($trackingCode);
+
+        return $this;
+    }
+
     /**
      * track any custom code
      *
@@ -355,6 +461,31 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 
         return $this;
     }
+
+    /**
+     * enable ecommerce enhanced tracking
+     *
+     * @return GoogleAnalytics
+     */
+    public function enableEcommerceEnhancedTracking()
+    {
+        $this->ecommerceEnhancedTracking = true;
+
+        return $this;
+    }
+
+    /**
+     * disable ecommerce enhanced tracking
+     *
+     * @return GoogleAnalytics
+     */
+    public function disableEcommerceEnhancedTracking()
+    {
+        $this->ecommerceEnhancedTracking = false;
+
+        return $this;
+    }
+
 
     /**
      * enable auto tracking
@@ -429,6 +560,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 
         if ($this->ecommerceTracking) {
             $script[] = "ga('require', 'ecommerce');";
+        }
+
+        if($this->ecommerceEnchancedTracking) {
+            $script[] = "ga('require', 'ec');";
         }
 
         if ($this->displayFeatures) {

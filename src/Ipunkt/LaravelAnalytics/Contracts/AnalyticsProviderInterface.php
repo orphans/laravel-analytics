@@ -175,6 +175,26 @@ interface AnalyticsProviderInterface
      */
     public function disableEcommerceTracking();
 
+        /**
+     * enable ecommerce enchanced tracking
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function enableEcommerceEnhancedTracking();
+
+    /**
+     * disable ecommerce enchanced tracking
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function disableEcommerceEnhancedTracking();
+
+    public function ecAddImpression($id, $name, $list = null, $category = null, $brand = null, $variant = null, $position = null, $price = null);  
+
+    public function ecAddProduct($id, $name, $category = null, $brand = null, $variant = null, $position = null, $price = null, $quantity = null);
+
+    public function ecSetAction($action, $options);
+
     /**
      * ecommerce tracking - add transaction
      *
