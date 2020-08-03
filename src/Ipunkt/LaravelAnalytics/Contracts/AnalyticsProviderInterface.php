@@ -176,14 +176,14 @@ interface AnalyticsProviderInterface
     public function disableEcommerceTracking();
 
         /**
-     * enable ecommerce enchanced tracking
+     * enable ecommerce enhanced tracking
      *
      * @return AnalyticsProviderInterface
      */
     public function enableEcommerceEnhancedTracking();
 
     /**
-     * disable ecommerce enchanced tracking
+     * disable ecommerce enhanced tracking
      *
      * @return AnalyticsProviderInterface
      */

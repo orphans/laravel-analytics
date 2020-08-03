@@ -53,11 +53,11 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $ecommerceTracking = false;
 
     /**
-     * ecomerce enchanced tracking
+     * ecomerce enhanced tracking
      *
      * @var boolean
      */
-    private $ecommerceEnchancedTracking = false;
+    private $ecommerceEnhancedTracking = false;
 
     /**
      * anonymize users ip
@@ -562,7 +562,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             $script[] = "ga('require', 'ecommerce');";
         }
 
-        if($this->ecommerceEnchancedTracking) {
+        if($this->ecommerceEnhancedTracking) {
             $script[] = "ga('require', 'ec');";
         }
 
